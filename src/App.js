@@ -7,7 +7,7 @@ import "./App.css";
 
 const App = () => {
   const [scanFile, setScanFile] = useState();
-  const [selected, setSelected] = useState("environment");
+  const [selected, setSelected] = useState("user");
   const [width, setWidth] = useState(window.innerWidth);
   // const [isMobile, setIsMobile] = useState(false);
   // const [scanQrCode, setScanQrcode] = useState(false);
@@ -75,6 +75,7 @@ const App = () => {
   // useEffect(() => {
   //   updateSize();
   // }, [width]);
+  console.log("selected",selected)
   return (
     <div className={"App"}>
       <div
