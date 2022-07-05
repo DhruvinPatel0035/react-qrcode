@@ -74,7 +74,7 @@ const App = () => {
   };
   useEffect(() => {
     updateSize();
-  }, [updateSize]);
+  }, [width]);
   return (
     <div className={"App"}>
       <div
