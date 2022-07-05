@@ -26,7 +26,7 @@ const App = () => {
     <div className={"App"}>
       <div
         style={{
-          width: "70%",
+          width: "100%",
           background: "rgba(0,0,0,0.2)",
           display: "flex",
           flexDirection: "column",
