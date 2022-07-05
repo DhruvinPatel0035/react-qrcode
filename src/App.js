@@ -9,7 +9,7 @@ const App = () => {
   const [scanFile, setScanFile] = useState();
   const [selected, setSelected] = useState("environment");
   const [width, setWidth] = useState(window.innerWidth);
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
   // const [scanQrCode, setScanQrcode] = useState(false);
   // const qrRef = useRef(null);
   // const onScanFile = () => {
@@ -64,17 +64,17 @@ const App = () => {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
-  console.log("isMobile ==>", isMobile);
-  const updateSize = () => {
-    if (width < 1024) {
-      setIsMobile(true);
-    } else if (width > 1024) {
-      setIsMobile(false);
-    }
-  };
-  useEffect(() => {
-    updateSize();
-  }, [width]);
+  // console.log("isMobile ==>", isMobile);
+  // const updateSize = () => {
+  //   if (width < 1024) {
+  //     setIsMobile(true);
+  //   } else if (width > 1024) {
+  //     setIsMobile(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   updateSize();
+  // }, [width]);
   return (
     <div className={"App"}>
       <div
@@ -88,7 +88,7 @@ const App = () => {
           rowGap: "1rem",
         }}
       >
-        {isMobile && (
+        {width < 1024 && (
           <select
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
