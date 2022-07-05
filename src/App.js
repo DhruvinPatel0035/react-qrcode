@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import QRCode from "qrcode";
 // import Scanner from "react-webcam-qr-scanner";
-import { QrReader } from "react-qr-reader";
+import QrReader  from "react-qr-reader";
 // import QrReader from "react-qr-scanner";
 import "./App.css";
 
@@ -96,8 +96,8 @@ const App = () => {
           >
             <option value={"environment"}>Back Camera</option>
             <option value={"user"}>Front Camera</option>
-            <option value={"right"}>right Camera</option>
-            <option value={"left"}>left Camera</option>
+            <option value={"right"}>Right Camera</option>
+            <option value={"left"}>Left Camera</option>
           </select>
         )}
         {/*{scanQrCode && (*/}
@@ -109,25 +109,28 @@ const App = () => {
           }}
         >
           <QrReader
-            videoId={"video"}
+            // videoId={"video"}
             // ref={qrRef}
-            scanDelay={300}
-            onResult={(result, error, codeReader) => {
-              if (!!result) {
-                handleScan(result?.text);
-              }
-              if (result) {
-                if (!!error) {
-                  handleError(error);
-                }
-              }
-            }}
+            // scanDelay={300}
+            // onResult={(result, error, codeReader) => {
+            //   if (!!result) {
+            //     handleScan(result?.text);
+            //   }
+            //   if (result) {
+            //     if (!!error) {
+            //       handleError(error);
+            //     }
+            //   }
+            // }}
+            delay={300}
+            onScan={handleScan}
+            onError={handleError}
             // style={{ width: "300px", height: "300px" }}
             style={{ width: "100%" }}
-            // facingMode={selected}
-            constraints={{
-              facingMode: selected,
-            }}
+            facingMode={selected}
+            // constraints={{
+            //   facingMode: selected,
+            // }}
           />
         </div>
         <div style={{ display: "flex", columnGap: "10px" }}>
