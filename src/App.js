@@ -96,8 +96,8 @@ const App = () => {
           >
             <option value={"environment"}>Back Camera</option>
             <option value={"user"}>Front Camera</option>
-            {/*<option value={"right"}>right Camera</option>*/}
-            {/*<option value={"left"}>left Camera</option>*/}
+            <option value={"right"}>right Camera</option>
+            <option value={"left"}>left Camera</option>
           </select>
         )}
         {/*{scanQrCode && (*/}
