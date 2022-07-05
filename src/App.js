@@ -75,7 +75,7 @@ const App = () => {
   // useEffect(() => {
   //   updateSize();
   // }, [width]);
-  console.log("selected",selected)
+  console.log("selected", selected);
   return (
     <div className={"App"}>
       <div
@@ -95,6 +95,8 @@ const App = () => {
             onChange={(e) => setSelected(e.target.value)}
           >
             <option value={"environment"}>Back Camera</option>
+            <option value={"right"}>right Camera</option>
+            <option value={"left"}>left Camera</option>
             <option value={"user"}>Front Camera</option>
           </select>
         )}
