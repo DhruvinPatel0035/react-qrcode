@@ -38,22 +38,22 @@ const App = () => {
       setScanFile(result);
     }
   };
-  let imageCapture;
-  const onGetUserMediaButtonClick = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((mediaStream) => {
-        document.querySelector("video").srcObject = mediaStream;
-
-        const track = mediaStream.getVideoTracks()[0];
-        imageCapture = new ImageCapture(track);
-      })
-      .catch((error) => console.log(error));
-  };
-  console.log("imageCapture", imageCapture);
-  useEffect(() => {
-    onGetUserMediaButtonClick();
-  });
+  // let imageCapture;
+  // const onGetUserMediaButtonClick = () => {
+  //   navigator.mediaDevices
+  //     .getUserMedia({ video: true })
+  //     .then((mediaStream) => {
+  //       document.querySelector("video").srcObject = mediaStream;
+  //
+  //       const track = mediaStream.getVideoTracks()[0];
+  //       imageCapture = new ImageCapture(track);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+  // console.log("imageCapture", imageCapture);
+  // useEffect(() => {
+  //   onGetUserMediaButtonClick();
+  // });
   const handleWindowResize = () => {
     setWidth(window.innerWidth);
   };
@@ -95,9 +95,9 @@ const App = () => {
             onChange={(e) => setSelected(e.target.value)}
           >
             <option value={"environment"}>Back Camera</option>
+            <option value={"user"}>Front Camera</option>
             {/*<option value={"right"}>right Camera</option>*/}
             {/*<option value={"left"}>left Camera</option>*/}
-            <option value={"user"}>Front Camera</option>
           </select>
         )}
         {/*{scanQrCode && (*/}
