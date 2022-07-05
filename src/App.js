@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import QRCode from "qrcode";
 // import Scanner from "react-webcam-qr-scanner";
 import { QrReader } from "react-qr-reader";
 // import QrReader from "react-qr-scanner";
 import "./App.css";
 
-const App = (props) => {
+const App = () => {
   const [scanFile, setScanFile] = useState();
   // const [scanQrCode, setScanQrcode] = useState(false);
   // const qrRef = useRef(null);
@@ -30,8 +30,7 @@ const App = (props) => {
   //   console.log("qrRef");
   // };
 
-  const handleError = (error) => {
-  };
+  const handleError = (error) => {};
   const handleScan = (result) => {
     if (result) {
       setScanFile(result);
