@@ -7,7 +7,9 @@ import "./App.css";
 
 const App = () => {
   const [scanFile, setScanFile] = useState();
-  const [selected, setSelected] = useState("user");
+  const [selected, setSelected] = useState("environment");
+  const [width, setWidth] = useState(window.innerWidth);
+  const [isMobile, setIsMobile] = useState(false);
   // const [scanQrCode, setScanQrcode] = useState(false);
   // const qrRef = useRef(null);
   // const onScanFile = () => {
@@ -36,29 +38,6 @@ const App = () => {
       setScanFile(result);
     }
   };
-  // let localstream;
-
-  // useEffect(() => {
-  //   let vid = document.getElementById("vid");
-  //   if (navigator.mediaDevices.getUserMedia !== null) {
-  //     const options = {
-  //       video: true,
-  //       audio: true,
-  //     };
-  //     navigator.getUserMedia(
-  //       options,
-  //       function (stream) {
-  //         vid.srcObject = stream;
-  //         localstream = stream;
-  //         vid.play();
-  //         console.log(stream, "streaming");
-  //       },
-  //       function (e) {
-  //         console.log("background error : " + e.name);
-  //       }
-  //     );
-  //   }
-  // });
   let imageCapture;
   const onGetUserMediaButtonClick = () => {
     navigator.mediaDevices
@@ -75,42 +54,27 @@ const App = () => {
   useEffect(() => {
     onGetUserMediaButtonClick();
   });
-  // const capOff = () => {
-  //   let vid = document?.getElementById("vid");
-  //   localstream?.getTracks()?.forEach((x) => x.stop());
-  //   console.log("all capture devices off", localstream);
-  //   if (vid) {
-  //     console.log("vid", vid);
-  //     vid.pause();
-  //     vid.src = "";
-  //   }
-  // };
-  //
-  // const camON = () => {
-  //   let vid = document.getElementById("vid");
-  //   console.log("vid", vid);
-  //   console.log("navigator", navigator);
-  //   if (navigator.mediaDevices.getUserMedia !== null) {
-  //     const options = {
-  //       video: true,
-  //       audio: true,
-  //     };
-  //     navigator.getUserMedia(
-  //       options,
-  //       function (stream) {
-  //         console.log("stream", stream);
-  //         vid.srcObject = stream;
-  //         localstream = stream;
-  //         vid.play();
-  //         console.log(stream, "streaming");
-  //       },
-  //       function (e) {
-  //         console.log("background error : " + e.name);
-  //       }
-  //     );
-  //   }
-  // };
+  const handleWindowResize = () => {
+    setWidth(window.innerWidth);
+  };
 
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+  console.log("isMobile ==>", isMobile);
+  const updateSize = () => {
+    if (width < 1024) {
+      setIsMobile(true);
+    } else if (width > 1024) {
+      setIsMobile(false);
+    }
+  };
+  useEffect(() => {
+    updateSize();
+  }, [updateSize]);
   return (
     <div className={"App"}>
       <div
@@ -124,15 +88,20 @@ const App = () => {
           rowGap: "1rem",
         }}
       >
-        <select value={selected} onChange={(e) => setSelected(e.target.value)}>
-          <option value={"user"}>Front Camera</option>
-          <option value={"environment"}>Back Camera</option>
-        </select>
+        {isMobile && (
+          <select
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+          >
+            <option value={"environment"}>Back Camera</option>
+            <option value={"user"}>Front Camera</option>
+          </select>
+        )}
         {/*{scanQrCode && (*/}
         <div
           style={{
-            width: "450px",
-            height: "450px",
+            minWidth: "300px",
+            minHeight: "300px",
             border: "1px solid black",
           }}
         >
@@ -152,8 +121,10 @@ const App = () => {
             }}
             // style={{ width: "300px", height: "300px" }}
             style={{ width: "100%" }}
-            facingMode={selected}
-            // constraints={{ facingMode: { exact: "user" } }}
+            // facingMode={selected}
+            constraints={{
+              facingMode: selected,
+            }}
           />
         </div>
         <div style={{ display: "flex", columnGap: "10px" }}>
