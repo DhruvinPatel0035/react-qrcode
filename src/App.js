@@ -7,6 +7,7 @@ import "./App.css";
 
 const App = () => {
   const [scanFile, setScanFile] = useState();
+  const [selected, setSelected] = useState("environment");
   // const [scanQrCode, setScanQrcode] = useState(false);
   // const qrRef = useRef(null);
   // const onScanFile = () => {
@@ -124,6 +125,10 @@ const App = () => {
           rowGap: "1rem",
         }}
       >
+        <select onChange={(e) => setSelected(e.target.value)}>
+          <option value={"environment"}>Back Camera</option>
+          <option value={"user"}>Front Camera</option>
+        </select>
         {/*{scanQrCode && (*/}
         <div
           style={{
@@ -148,8 +153,7 @@ const App = () => {
             }}
             // style={{ width: "300px", height: "300px" }}
             style={{ width: "100%" }}
-            facingMode={"environment"}
-            on
+            facingMode={selected}
           />
         </div>
         <div style={{ display: "flex", columnGap: "10px" }}>
