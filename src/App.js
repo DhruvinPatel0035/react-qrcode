@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import QrReader from "react-qr-reader";
+import { isMobile } from "react-device-detect";
 import "./App.css";
 
 const App = () => {
   const [scanFile, setScanFile] = useState();
-  const [selected, setSelected] = useState("environment");
+  const [selected, setSelected] = useState("user");
   const [width, setWidth] = useState(window.innerWidth);
   const handleError = (error) => {};
   const handleScan = (result) => {
@@ -21,7 +22,6 @@ const App = () => {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
-  console.log("selected", selected);
   return (
     <div className={"App"}>
       <div
@@ -35,16 +35,18 @@ const App = () => {
           rowGap: "1rem",
         }}
       >
-        {width <= 1280 && (
-          <select
-            value={selected}
-            onChange={(e) => setSelected(e.target.value)}
-            className={"select"}
-          >
-            <option value={"environment"}>Back Camera</option>
-            <option value={"user"}>Front Camera</option>
-          </select>
-        )}
+        <div style={{ width: width <= 400 && "100%" }}>
+          {isMobile && (
+            <select
+              value={selected}
+              onChange={(e) => setSelected(e.target.value)}
+              className={"select"}
+            >
+              <option value={"environment"}>Back Camera</option>
+              <option value={"user"}>Front Camera</option>
+            </select>
+          )}
+        </div>
         <div
           style={{
             width: "100%",
