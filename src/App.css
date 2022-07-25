@@ -8,7 +8,8 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   background-color: white;
   /*bottom: 5px;*/
   /*left: 10px;*/
@@ -18,4 +19,24 @@
   border-radius: 4px;
   font-size: 17px;
   width: 100%;
+}
+.button {
+  background: linear-gradient(to bottom, #544dbd 5%, #544dbd 100%);
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Trebuchet MS;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 16px;
+  text-decoration: none;
+  border: none;
+}
+.button:hover {
+  background: linear-gradient(to bottom, #6a6cca 5%, #6a6cca 100%);
+}
+.button:active {
+  position: relative;
+  top: 1px;
 }
