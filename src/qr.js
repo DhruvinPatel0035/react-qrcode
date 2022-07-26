@@ -36,13 +36,13 @@ const Qr = () => {
       setVideoInputDevices(videoInputDevices);
     }
   };
-  const saveImageHandler = (id, url) => {
-    const updateData = {
-      id: id,
-      url: url,
-    };
-    setImageUrls([...imageUrls, updateData]);
-  };
+
+  useEffect(() => {
+    if (imageUrls.length) {
+      localStorage.setItem("image", JSON.stringify(imageUrls));
+    }
+  }, [imageUrls]);
+
   const decodeContinuously = (selectedDeviceId) => {
     codeReader.decodeFromVideoDevice(
       selectedDeviceId,
@@ -56,11 +56,10 @@ const Qr = () => {
           canvas.height = video.videoHeight;
           context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
           const data = canvas.toDataURL("image/png", 1.0);
-          const urls = [data];
-          localStorage.setItem("image", JSON.stringify(urls));
           const id = `Img-${Math.floor(Math.random() * 5000)}`;
           setImgId(id);
-          saveImageHandler(id, data);
+          console.log("OLD IMAGE ===>", imageUrls);
+          setImageUrls((prev) => [...prev, { id: id, url: data }]);
           const base64data = data
             .replace("data:image/jpeg;base64", "")
             .replace("data:image/png;base64", "");
@@ -77,9 +76,13 @@ const Qr = () => {
       }
     );
   };
+
   useEffect(() => {
-    decodeContinuously(selectedDeviceId);
+    if (selectedDeviceId) {
+      decodeContinuously(selectedDeviceId);
+    }
   }, [selectedDeviceId]);
+
   return (
     <div className="App">
       <div
@@ -94,7 +97,7 @@ const Qr = () => {
         }}
       >
         {imageUrls.length > 0 && (
-          <div>
+          <div style={{ width: width <= 400 && "100%" }}>
             <select
               id="sourceSelect"
               onChange={(img) => {
@@ -110,7 +113,7 @@ const Qr = () => {
             </select>
           </div>
         )}
-        <div style={{ width: width <= 400 && "100%" }}>
+        <div style={{ width: width <= 400 && "100%", display: "none" }}>
           {width <= 400 && (
             <select
               id="sourceSelect"
